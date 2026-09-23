@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 2,
+  "agentName": "my-pc",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus25.actions.githubusercontent.com/u00GqD4BTXUq1SHj5lTcUBoga6PzeQqKoDU084aWJopyISfb60/",
+  "gitHubUrl": "https://github.com/Sasavot-op/cd_example",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}
