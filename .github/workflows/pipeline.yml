@@ -1,15 +1,45 @@
-name: Run Python
+
+name: Git Flow CI/CD
 
 on:
   push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+      - 'release/**'
+  pull_request:
+    branches:
+      - main
+      - develop
 
 jobs:
-  run-python:
-    runs-on: self-hosted
-
+  ci:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Check Python
+        run: python -m py_compile main.py
 
       - name: Run Python
-        run: C:\Users\snike\AppData\Local\Programs\Python\Python313\python.exe main.py
+        run: python main.py
+
+  cd:
+    needs: ci
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare release
+        run: mkdir -p release && cp main.py release/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-release
+          path: release/
